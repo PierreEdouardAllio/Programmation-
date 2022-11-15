@@ -1,0 +1,12 @@
+# depslib dependency file v1.0
+1668076620 source:c:\users\pierre-edouard allio\desktop\codes prog\projet2\projet\main.cpp
+	<iostream>
+	"cCompression.h"
+
+1668508406 c:\users\pierre-edouard allio\desktop\codes prog\projet2\projet\include\ccompression.h
+	<cmath>
+	<iostream>
+
+1667660050 source:c:\users\pierre-edouard allio\desktop\codes prog\projet2\projet\src\ccompression.cpp
+	"cCompression.h"
+

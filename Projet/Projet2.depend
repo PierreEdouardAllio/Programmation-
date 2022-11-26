@@ -1,0 +1,46 @@
+# depslib dependency file v1.0
+1668956669 source:c:\users\pierre-edouard allio\desktop\codes prog\projet2\projet\main.cpp
+	<iostream>
+	"cCompression.h"
+
+1668956439 c:\users\pierre-edouard allio\desktop\codes prog\projet2\projet\include\ccompression.h
+	<cmath>
+	<iostream>
+
+1667660050 source:c:\users\pierre-edouard allio\desktop\codes prog\projet2\projet\src\ccompression.cpp
+	"cCompression.h"
+
+1669367082 source:c:\users\pierr\onedrive\escritorio\codes prog\projet2\projet\main.cpp
+	<iostream>
+	"cCompression.h"
+
+1669369814 c:\users\pierr\onedrive\escritorio\codes prog\projet2\projet\include\ccompression.h
+	<cmath>
+	<iostream>
+
+1667660052 source:c:\users\pierr\onedrive\escritorio\codes prog\projet2\projet\src\ccompression.cpp
+	"cCompression.h"
+
+1669370949 source:c:\users\pierr\onedrive\escritorio\codes prog\projet2\projet\src\chuffman.cpp
+	"cHuffman.h"
+
+1669375519 c:\users\pierr\onedrive\escritorio\codes prog\projet2\projet\include\chuffman.h
+	<iostream>
+	<queue>
+
+1669475011 source:c:\work\programing\codes\projet2\projet\main.cpp
+	<iostream>
+	"cCompression.h"
+
+1669473558 c:\work\programing\codes\projet2\projet\include\ccompression.h
+	<cmath>
+	<iostream>
+
+1669474202 c:\work\programing\codes\projet2\projet\include\chuffman.h
+
+1667660052 source:c:\work\programing\codes\projet2\projet\src\ccompression.cpp
+	"cCompression.h"
+
+1669474256 source:c:\work\programing\codes\projet2\projet\src\chuffman.cpp
+	"cHuffman.h"
+

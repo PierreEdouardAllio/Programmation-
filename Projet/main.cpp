@@ -1,5 +1,6 @@
 #include <iostream>
 #include"cCompression.h"
+
 using namespace std;
 
 int main()
@@ -64,9 +65,12 @@ int main()
            ImageDEDCT[i][j]=0;
        }
     }
+    //Dynamic Allocation Liste RLE
+    double* Liste=new double[100];
+
     //Fonctions de compression (I/O)
-    cCompression A(8,8,ImageInit,50);
     /*
+    cCompression A(8,8,ImageInit,50);
     A.Calcul_DCT_Block(ImageInit,ImageDCT);
     A.Calcul_Quant_JPEG(ImageDCT,ImageQUANT);
     A.Calcul_Inverse_Quant_JPEG(ImageQUANT,ImageDEQUANT);
@@ -76,6 +80,36 @@ int main()
     std::cout<<"EQM : "<<X<<std::endl;
     Y=A.TauxCompression(ImageQUANT);
     std::cout<<"Taux de conversion : "<<Y<<" % "<<std::endl;
-    return 0;*/
-    A.RLE_Block(ImageInit);
+    int DC_Precedent = int(ImageQUANT[0][0]);
+    A.RLE_Block(ImageQUANT,DC_Precedent, Liste);
+    */
+    //Block16x16 exemple
+    double R[16][16]={{139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155},{139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155},
+    {139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155},{139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155},
+    {139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155},{139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155},
+    {139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155},{139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155},
+    {139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155},{139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155},
+    {139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155},{139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155},
+    {139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155},{139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155},
+    {139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155},{139, 144, 149, 153, 155, 155, 155, 155,139, 144, 149, 153, 155, 155, 155, 155}};
+        //Dynamic Allocation Image Initiale
+    double ** ImageRLE;
+    ImageRLE=new double *[16];
+    for (unsigned i=0;i<8;i++)
+    {
+       ImageRLE[i]=new double[16];
+       for (unsigned j=0;j<8;j++)
+       {
+           ImageRLE[i][j]=R[i][j];
+       }
+    }
+    cCompression F(16,16,ImageRLE,50);
+    F.RLE(Liste);
+    std::cout<<"LISTE RLE"<<std::endl;
+    for (unsigned i=0;i<100;i++)
+    {
+        std::cout<<Liste[i]<<" ";
+    }
+    std::cout<<std::endl;
+    return 0;
 }

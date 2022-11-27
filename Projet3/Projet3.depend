@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1669474174 source:c:\work\programing\codes\projet3\projet3\src\ccompression.cpp
+	"cCompression.h"
+
+1669474715 c:\work\programing\codes\projet3\projet3\include\ccompression.h
+	<cmath>
+	<iostream>
+
+1669477796 source:c:\work\programing\codes\projet3\projet3\main.cpp
+	<iostream>
+	"cCompressionF.h"
+
+1669477844 c:\work\programing\codes\projet3\projet3\include\ccompressionf.h
+	<cmath>
+	<iostream>
+
+1669476569 source:c:\work\programing\codes\projet3\projet3\src\ccompressionf.cpp
+	"cCompressionF.h"
+

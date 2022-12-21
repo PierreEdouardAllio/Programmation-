@@ -9,9 +9,10 @@ int main()
 {
     void affichage1D(double* Element, unsigned Taille, string Titre);
     void affichage2D(double** Element, unsigned Taille, string Titre);
-    void LectureImage (string Titre,double** Block);
+    void LectureImage (string Titre,double** Block,unsigned TailleB);
     unsigned TailleBlock = 8;
     unsigned TailleImage = 16;
+    unsigned TailleFinal = 64;
     //Block8x8 exemple
     double B[TailleBlock][TailleBlock]={{139, 144, 149, 153, 155, 155, 155, 155},{144, 151, 153, 156, 159, 156, 156, 156},{150, 155, 160, 163, 158, 156, 156, 156}
     ,{159, 161, 162, 160, 160, 159, 159, 159},{159, 160, 161, 162, 162, 155, 155, 155},{161, 161, 161, 161, 160, 157, 157, 157}
@@ -92,8 +93,13 @@ int main()
        }
     }
     //Dynamic Allocation Liste RLE
-    double* Liste1=new double[1000];
-    double* Liste2=new double[1000];
+    double* Liste1=new double[10000];
+    double* Liste2=new double[10000];
+    for (unsigned i=0;i<10000;i++)
+    {
+        Liste1[i]=0;
+        Liste2[i]=0;
+    }
 
     //Fonctions de compression (I/O)
     /*
@@ -111,11 +117,11 @@ int main()
     A.RLE_Block(ImageQUANT,DC_Precedent, Liste);
     */
     double** Image;
-    Image=new double*[8];
-    for (unsigned i=0;i<8;i++)
+    Image=new double*[TailleFinal];
+    for (unsigned i=0;i<TailleFinal;i++)
     {
-       Image[i]=new double[8];
-       for (unsigned j=0;j<8;j++)
+       Image[i]=new double[TailleFinal];
+       for (unsigned j=0;j<TailleFinal;j++)
        {
            Image[i][j]=0;
        }
@@ -127,10 +133,11 @@ int main()
     unsigned THisto2=0;
     string Titre1="Liste_RLE";
     string Titre2="Image_Initiale";
-    double Frequence1[100];
-    double Donnee1[100];
-    double Frequence2[100];
-    double Donnee2[100];
+    double Frequence1[1000];
+    double Donnee1[1000];
+    double Frequence2[1000];
+    double Donnee2[1000];
+    /*
     cCompressionF F(TailleBlock,TailleBlock,ImageRLE,50);
     TListe1=F.RLE(Liste1);
     std::cout<<"Taille RLE : "<<TListe1<<std::endl;
@@ -146,11 +153,12 @@ int main()
     cHuffmanF W(Liste1,THisto1);
     W.HuffmanCodes(Y,X,6);
     W.HuffmanCodes(Donnee1,Frequence1,THisto1);
+    */
     //Donnees .dat
     string Titre3="lenna.dat";
-    LectureImage(Titre3,Image);
-    affichage2D(Image,8,"Block Image");
-    cCompressionF L(TailleBlock,TailleBlock,Image,50);
+    LectureImage(Titre3,Image,TailleFinal);
+    affichage2D(Image,TailleFinal,"Block Image");
+    cCompressionF L(TailleFinal,TailleFinal,Image,50);
     TListe2=L.RLE(Liste2);
     std::cout<<"Taille RLE : "<<TListe2<<std::endl;
     affichage1D(Liste2,TListe2,Titre1);
@@ -205,25 +213,25 @@ void affichage1D(double* Element2, unsigned Taille, string Titre)
     }
     std::cout<<std::endl;
 }
-//! Affichage 2D
+//! LectureImage
 /**@brief
-*   Cette fonction affiche un array a 2 dimensions
+*   Cette fonction lit un fichier .dat et le transforme en une matrice
 *
 *@param[in] Block
 *    double** Block a 2 dimensions qui recoit les valeurs du fichier
 *@param[in] Titre
 *    string Nom du fichier
 */
-void LectureImage (string Titre,double** Block)
+void LectureImage (string Titre,double** Block,unsigned TailleB)
 {
     std::ifstream file;
     file.open(Titre);
-    char buffer[2000];
-    for (unsigned i=0;i<8;i++)
+    char buffer[20000];
+    for (unsigned i=0;i<TailleB;i++)
     {
-        for (unsigned j=0;j<8;j++)
+        for (unsigned j=0;j<TailleB;j++)
         {
-            file.getline(buffer,2000,' ');
+            file.getline(buffer,20000,' ');
             Block[i][j]=stod(buffer);
         }
     }

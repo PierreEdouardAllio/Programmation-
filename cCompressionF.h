@@ -543,7 +543,7 @@ unsigned RLE(double* ListeFinale)
        Output[i]=new double[8];
        for (unsigned j=0;j<8;j++)
        {
-           Output[i][j]=mBuffer[i][j];
+           Output[i][j]=0;
        }
     }
     //Taille de la liste RLE precedente
@@ -552,28 +552,24 @@ unsigned RLE(double* ListeFinale)
     double * ListeInter;
     ListeInter=new double [mHauteur*mLargeur];
     //Declaration des variables utilisees pour la separation de l'image en blocs 8x8
-    unsigned decalagey=0;
-    unsigned decalagez=0;
     unsigned decalageL=0;
-    //Creation d'une matrice ND
-    for (unsigned x=0;x<((mHauteur/8)*(mHauteur/8));x++)//Il y a (mHauteur/2)^2 dimensions
+    unsigned HauteurB=mHauteur/8;
+    unsigned LargeurB=mLargeur/8;
+    //Separation de l'image en plusieurs blocks 8x8
+    for (unsigned x=0;x<((mHauteur/8)*(mHauteur/8));x++)
     {
-        for (unsigned y=decalagey;y<8+decalagey;y++)//Bloc 8x8 largeur/hauteur
+        for (unsigned i=0 ; i<mHauteur;i+=HauteurB)
         {
-            for (unsigned z=decalagez;z<8+decalagez;z++)//Bloc 8x8 largeur/hauteur
+            for (unsigned j=0;j<mLargeur;j+=LargeurB)
             {
-                Block8x8[x][y-decalagey][z-decalagez]=mBuffer[y][z];
+                for (unsigned k=0;k<HauteurB;k++)
+                {
+                    for (unsigned l=0;l<LargeurB;l++)
+                    {
+                        Block8x8[x][k][l]=mBuffer[i+k][j+l];
+                    }
+                }
             }
-        }
-        //Definitions des decalages
-        if (decalagey<mHauteur-8)
-        {
-            decalagey+=8;
-        }
-        if (decalagey==mHauteur-8)
-        {
-            decalagez+=8;
-            decalagey=0;
         }
     }
     //Calcul du RLE pour l'image
@@ -609,10 +605,10 @@ unsigned RLE(double* ListeFinale)
 unsigned Histogramme(double* Trame, unsigned Longueur_Trame, double* Donnee, double* Frequence)
 {
     unsigned TailleListe=0;
-    double visited[Longueur_Trame];
+    double Redondance[Longueur_Trame];
     for (unsigned Taille=0;Taille<Longueur_Trame;Taille++)
     {
-        if(visited[Taille]!=1)
+        if(Redondance[Taille]!=1)
         {
             unsigned Count=1;
             for(unsigned offset=Taille+1;offset<Longueur_Trame;offset++)
@@ -620,11 +616,11 @@ unsigned Histogramme(double* Trame, unsigned Longueur_Trame, double* Donnee, dou
                 if(Trame[Taille]==Trame[offset])
                 {
                     Count++;
-                    visited[offset]=1;
+                    Redondance[offset]=1;
                 }
             }
-            Donnee[Taille]=Trame[Taille];
-            Frequence[Taille]=Count;
+            Donnee[TailleListe]=Trame[Taille];
+            Frequence[TailleListe]=Count;
             TailleListe++;
         }
     }
